@@ -1,0 +1,22 @@
+type Character {
+  name: String!
+  appearsIn: [Episode]!
+}
+
+enum Episode {
+  EMPIRE
+  JEDI
+}
+
+type Query {
+  characters: [Character]
+}
+
+input CreateCharacter {
+  name: String!
+}
+
+type Mutation {
+  createCharacter(character: CreateCharacter!): Character!
+}
+
