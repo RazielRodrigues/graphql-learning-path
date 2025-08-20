@@ -1,0 +1,104 @@
+#ddev-generated
+# If you remove the ddev-generated line above you
+# are responsible for maintaining this file. DDEV will not then
+# update it, for example if you add `additional_hostnames`, etc.
+
+http:
+  routers:
+    flirt-flow-xhgui-80-http:
+      entrypoints:
+        - http-8143
+      rule: HostRegexp(`^flirt-flow\.ddev\.site$`)
+      
+      service: "flirt-flow-xhgui-80"
+      ruleSyntax: v3
+      tls: false
+      # middlewares:
+      #   - "flirt-flow-redirectHttps"
+    flirt-flow-web-80-http:
+      entrypoints:
+        - http-80
+      rule: HostRegexp(`^flirt-flow\.ddev\.site$`)
+      
+      service: "flirt-flow-web-80"
+      ruleSyntax: v3
+      tls: false
+      # middlewares:
+      #   - "flirt-flow-redirectHttps"
+    flirt-flow-web-8025-http:
+      entrypoints:
+        - http-8025
+      rule: HostRegexp(`^flirt-flow\.ddev\.site$`)
+      
+      service: "flirt-flow-web-8025"
+      ruleSyntax: v3
+      tls: false
+      # middlewares:
+      #   - "flirt-flow-redirectHttps"
+    
+    
+    flirt-flow-xhgui-80-https:
+      entrypoints:
+        - http-8142
+      rule: HostRegexp(`^flirt-flow\.ddev\.site$`)
+      
+      service: "flirt-flow-xhgui-80"
+      ruleSyntax: v3
+      
+      tls: true
+      
+    
+    
+    flirt-flow-web-80-https:
+      entrypoints:
+        - http-443
+      rule: HostRegexp(`^flirt-flow\.ddev\.site$`)
+      
+      service: "flirt-flow-web-80"
+      ruleSyntax: v3
+      
+      tls: true
+      
+    flirt-flow-web-8025-https:
+      entrypoints:
+        - http-8026
+      rule: HostRegexp(`^flirt-flow\.ddev\.site$`)
+      
+      service: "flirt-flow-web-8025"
+      ruleSyntax: v3
+      
+      tls: true
+      
+    
+
+  middlewares:
+    flirt-flow-redirectHttps:
+      redirectScheme:
+        scheme: https
+        permanent: true
+
+  services:
+    flirt-flow-xhgui-80:
+      loadbalancer:
+        servers:
+          - url: http://ddev-flirt-flow-xhgui:80
+        
+    
+    flirt-flow-web-80:
+      loadbalancer:
+        servers:
+          - url: http://ddev-flirt-flow-web:80
+        
+    flirt-flow-web-8025:
+      loadbalancer:
+        servers:
+          - url: http://ddev-flirt-flow-web:8025
+        
+    
+    
+    
+
+tls:
+  certificates:
+    - certFile: /mnt/ddev-global-cache/traefik/certs/flirt-flow.crt
+      keyFile: /mnt/ddev-global-cache/traefik/certs/flirt-flow.key
