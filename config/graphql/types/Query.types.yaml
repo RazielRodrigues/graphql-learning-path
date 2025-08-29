@@ -4,4 +4,4 @@ Query:
     fields:
       characters:
         type: "[Character]!"
-        resolve: "@=resolver('App\\Resolver\\CharacterResolver::map')"
+        resolve: '@=resolver("App\\GraphQL\\Resolver\\CharacterResolver", info, args)'

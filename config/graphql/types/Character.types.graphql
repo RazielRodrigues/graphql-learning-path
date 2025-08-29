@@ -1,4 +1,11 @@
 type Character {
-  name: String!
-  appearsIn: [Episode]!
+  id(id: Int): Int
+  name: String
+  movies: [Movies]
+}
+
+type Movies {
+  id(id: ID): Int
+  name: String
+  description: String
 }
