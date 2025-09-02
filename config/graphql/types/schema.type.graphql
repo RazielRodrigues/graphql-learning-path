@@ -1,0 +1,15 @@
+type Query {
+  characters: [Character]
+}
+
+input addCharacterInput {
+  name: String
+}
+ 
+type Mutation {
+  addCharacter(input: addCharacterInput!): Character
+}
+
+type addCharacterPayload {
+  name: String
+}

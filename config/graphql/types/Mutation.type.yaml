@@ -1,0 +1,10 @@
+Mutation:
+  type: object
+  config:
+    fields:
+      addCharacter:
+        builder: "Relay::Mutation"
+        builderConfig:
+          inputType: addCharacterInput!
+          payloadType: addCharacterPayload
+          mutateAndGetPayload: "@=mutation('add_character', [value['input']['name']])"
