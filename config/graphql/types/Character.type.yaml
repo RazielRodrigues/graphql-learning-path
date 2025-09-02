@@ -1,5 +1,6 @@
 Character:
   type: object
+  #todo: ver depois interfaces: [CharacterInterface] # multiple interfaces allowed
   config:
     description: "Some character from a movie"
     fields:
@@ -8,3 +9,5 @@ Character:
         description: "The ID"
       name:
         type: "String"
+      movies:
+        type: Movies

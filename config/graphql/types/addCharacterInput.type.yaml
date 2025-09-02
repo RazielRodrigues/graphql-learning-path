@@ -4,3 +4,9 @@ addCharacterInput:
     fields:
       name:
         type: "String"
+        #validation: # applying constraints to `username`
+        #    - Length:
+        #        min: 0
+        #        max: 32
+      description:
+        type: "String"

@@ -1,0 +1,8 @@
+CharacterInterface:
+  type: interface
+  config:
+    resolveType: "@=query('get', value, typeResolver)"
+    description: "A character in the Star Wars Trilogy"
+    fields:
+      id: "ID"
+      name: "String"

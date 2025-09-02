@@ -6,3 +6,5 @@ addCharacterPayload:
         type: ID
       name:
         type: String
+      movies:
+        type: Movies
