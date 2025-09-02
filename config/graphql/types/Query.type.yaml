@@ -2,6 +2,5 @@ Query:
   type: object
   config:
     fields:
-      characters:
-        type: "[Character]!"
-        resolve: '@=resolver("App\\GraphQL\\Resolver\\CharacterResolver", info, args)'
+      id:
+        type: Int

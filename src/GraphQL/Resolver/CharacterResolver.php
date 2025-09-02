@@ -16,6 +16,7 @@ class CharacterResolver extends ResolverMap
         return [
             'Query' => [
                 self::RESOLVE_FIELD => function ($value, ArgumentInterface $args, \ArrayObject $context, ResolveInfo $info) {
+                    return [];
                     $id = (int) $args['id'];
                     if ($id) {
                         return $this->characterRepository->find($id);

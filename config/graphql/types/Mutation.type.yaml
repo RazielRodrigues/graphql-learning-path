@@ -3,8 +3,9 @@ Mutation:
   config:
     fields:
       addCharacter:
-        builder: "Relay::Mutation"
-        builderConfig:
-          inputType: addCharacterInput!
-          payloadType: addCharacterPayload
-          mutateAndGetPayload: "@=mutation('add_character', [value['input']['name']])"
+        type: addCharacterPayload!
+        resolve: "@=mutation('add_character', args['input']['name'])"
+        args:
+          #using input object type is optional, we use it here to be iso with relay mutation example.
+          input:
+            type: addCharacterInput!

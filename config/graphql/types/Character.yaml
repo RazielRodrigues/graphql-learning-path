@@ -1,0 +1,10 @@
+Character:
+  type: object
+  config:
+    description: "Some character from a movie"
+    fields:
+      id:
+        type: "ID"
+        description: "The ID"
+      name:
+        type: "String"

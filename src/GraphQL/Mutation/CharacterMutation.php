@@ -13,9 +13,8 @@ class CharacterMutation implements MutationInterface, AliasedInterface
     public function __construct(private EntityManagerInterface $entityManagerInterface) {
      }
 
-    public function addCharacter(string $name) : array
+    public function addCharacter(string $name) : void
     {
-        return [12121];
         $character = new Character();
         $character->setName($name);
         $this->entityManagerInterface->persist($character);

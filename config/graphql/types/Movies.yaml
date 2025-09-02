@@ -1,0 +1,12 @@
+Movies:
+  type: object
+  config:
+    description: "Some Movie"
+    fields:
+      id:
+        type: "ID"
+        description: "The ID"
+      name:
+        type: "String"
+      description:
+        type: "String"
