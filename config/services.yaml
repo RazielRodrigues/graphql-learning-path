@@ -11,6 +11,11 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
+    _instanceof:
+        App\Domain\Bus\Command\CommandHandler:
+            tags: ['internal.command_handler']
+        App\Domain\Bus\Query\QueryHandler:
+            tags: ['internal.query_handler']
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
@@ -18,4 +23,9 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
- 
+    App\Domain\Bus\Command\CommandBus:
+        class: App\Infra\Bus\Command\InMemoryCommandBus
+        arguments: [internal.command_handler]
+    App\Domain\Bus\Query\QueryBus:
+        class: App\Infra\Bus\Query\InMemoryQueryBus
+        arguments: [internal.query_handler]
