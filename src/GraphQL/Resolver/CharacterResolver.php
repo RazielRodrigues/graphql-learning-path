@@ -3,11 +3,8 @@
 namespace App\GraphQL\Resolver;
 
 use App\Repository\CharacterRepository;
-use GraphQL\Type\Definition\ResolveInfo;
-use Overblog\GraphQLBundle\Definition\ArgumentInterface;
 use Overblog\GraphQLBundle\Definition\Resolver\AliasedInterface;
 use Overblog\GraphQLBundle\Definition\Resolver\QueryInterface;
-use Overblog\GraphQLBundle\Resolver\ResolverMap;
 
 class CharacterResolver implements QueryInterface, AliasedInterface
 {
@@ -15,7 +12,7 @@ class CharacterResolver implements QueryInterface, AliasedInterface
 
     public function get(?string $name)
     {
-        return $this->characterRepository->findBy(['name' => $name]);
+        return $name ? $this->characterRepository->findBy(['name' => $name]) : $this->characterRepository->findAll();
     }
 
       public static function getAliases(): array
