@@ -23,9 +23,9 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    App\Domain\Bus\Command\CommandBus:
+    App\Infra\Bus\Command:
         class: App\Infra\Bus\Command\InMemoryCommandBus
         arguments: [internal.command_handler]
-    App\Domain\Bus\Query\QueryBus:
+    App\Infra\Bus\Query:
         class: App\Infra\Bus\Query\InMemoryQueryBus
         arguments: [internal.query_handler]

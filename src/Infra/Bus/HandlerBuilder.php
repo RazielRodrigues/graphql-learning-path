@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Domain\Bus;
+namespace App\Infra\Bus;
 
 use ReflectionClass;
+use App\Domain\HandlerBuilderInterface;
 
-class HandlerBuilder {
+class HandlerBuilder implements HandlerBuilderInterface {
 
     public static function fromCallables(iterable $callables) : array
     {
