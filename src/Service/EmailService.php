@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Service;
 use App\Domain\Bus\Command\Command;
 use App\Entity\Email;
 use Doctrine\ORM\EntityManagerInterface;

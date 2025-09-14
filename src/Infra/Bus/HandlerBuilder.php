@@ -3,7 +3,7 @@
 namespace App\Infra\Bus;
 
 use ReflectionClass;
-use App\Domain\HandlerBuilderInterface;
+use App\Domain\Bus\HandlerBuilderInterface;
 
 class HandlerBuilder implements HandlerBuilderInterface {
 

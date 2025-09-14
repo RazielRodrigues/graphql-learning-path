@@ -7,7 +7,7 @@ namespace App\Application\Command;
 use App\Application\Command\CreateEmailCommand;
 use App\Domain\Bus\Command\CommandHandler;
 use App\Entity\Email;
-use EmailService;
+use App\Service\EmailService;
 
 class CreateEmailCommandHandler implements CommandHandler
 {

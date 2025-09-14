@@ -21,13 +21,13 @@ class ApiController extends AbstractController {
     ) {
     }
 
-    #[Route(path: '/', name: 'home', methods: ['GET'])]
+    #[Route(path: '/', name: 'app_api_home', methods: ['POST'])]
     public function home() : Response {
-        return new JsonResponse(['message' => 'ok']);
+        return new JsonResponse(['status' => Response::HTTP_OK]);
     }
 
-    #[Route(path: '/email/{email}', name: 'query', methods: ['GET'])]
-    public function query(string $email) : Response {
+    #[Route(path: '/email', name: 'query', methods: ['GET'])]
+    public function query() : Response {
         $findEmailResponse = $this->queryBus->ask(
             new FindEmailQuery(email: 'mail@mail.com')
         );
@@ -37,8 +37,8 @@ class ApiController extends AbstractController {
         return new JsonResponse(['message' => $email]);
     }
 
-    #[Route(path: '/email/create/{email}', name: 'query', methods: ['GET'])]
-    public function create(string $email) : Response {
+    #[Route(path: '/email/create', name: 'command', methods: ['GET'])]
+    public function create() : Response {
 
         $this->commandBus->dispatch(
             new CreateEmailCommand(email: 'mail@mail.com', name: 'Raziel Rodrigues')
