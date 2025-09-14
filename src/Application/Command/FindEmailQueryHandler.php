@@ -16,9 +16,9 @@ final class FindEmailQueryHandler implements QueryHandler
     {
     }
 
-    public function __invoke(FindEmailQuery $query) : Email
+    public function __invoke(FindEmailQuery $query) : array
     {
-         $email = $this->repository->findById($query->email());
+         $email = $this->repository->findAll();
 
         if ($email === null) {
             throw new InvalidArgumentException('Email not found');

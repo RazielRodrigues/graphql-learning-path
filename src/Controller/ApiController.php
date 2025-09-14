@@ -28,23 +28,23 @@ class ApiController extends AbstractController {
 
     #[Route(path: '/email', name: 'query', methods: ['GET'])]
     public function query() : Response {
-        $findEmailResponse = $this->queryBus->ask(
+        $findEmailResponse = $this->queryBus->handle(
             new FindEmailQuery(email: 'mail@mail.com')
         );
 
-        $email = $findEmailResponse->email();
+        $emails = $findEmailResponse;
 
-        return new JsonResponse(['message' => $email]);
+        # fix
+        return new JsonResponse(['message' => $emails[3]->getEmail()]);
     }
 
     #[Route(path: '/email/create', name: 'command', methods: ['GET'])]
     public function create() : Response {
 
-        $this->commandBus->dispatch(
-            new CreateEmailCommand(email: 'mail@mail.com', name: 'Raziel Rodrigues')
-        );
+        $command = new CreateEmailCommand(email: 'mail@mail.com' . microtime(), name: 'Raziel Rodrigues');
+        $this->commandBus->dispatch($command);
 
-        return new JsonResponse(['message' => 'ok']);
+        return new JsonResponse(['message' => $command->email() . ' created']);
     }
 
 }

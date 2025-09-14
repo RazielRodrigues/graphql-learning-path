@@ -4,5 +4,5 @@ namespace App\Domain\Bus\Query;
 
 interface QueryBus
 {
-    public function ask(Query $query) : mixed;
+    public function handle(Query $query) : mixed;
 }

@@ -9,34 +9,26 @@ use App\Infra\Bus\HandlerBuilder;
 use InvalidArgumentException;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 use Symfony\Component\Messenger\Handler\HandlersLocator;
+use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBus;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
 
 final class InMemoryQueryBus implements QueryBus
 {
-    private MessageBus $bus;
-
-    public function __construct(iterable $queryHandlers)
-    {
-        $this->bus = new MessageBus([
-            new HandleMessageMiddleware(
-                new HandlersLocator(
-                    HandlerBuilder::fromCallables($queryHandlers),
-                ),
-            ),
-        ]);
+    use HandleTrait {
+        handle as handleQuery;
     }
 
-    public function ask(Query $query): mixed
+    public function __construct(MessageBusInterface $queryBus)
     {
-        try {
-            /** @var HandledStamp $stamp */
-            $stamp = $this->bus->dispatch($query)->last(HandledStamp::class);
+        $this->messageBus = $queryBus;
+    }
 
-            return $stamp->getResult();
-        } catch (NoHandlerForMessageException $e) {
-            throw new InvalidArgumentException(sprintf('The query has not a valid handler: %s', $query::class));
-        }
+    /** @return mixed */
+    public function handle(Query $query): mixed
+    {
+        return $this->handleQuery($query);
     }
 }

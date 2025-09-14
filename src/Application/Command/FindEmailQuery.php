@@ -6,11 +6,11 @@ use App\Domain\Bus\Query\Query;
 
 final class FindEmailQuery implements Query
 {
-    public function __construct(private readonly string $email)
+    public function __construct(public readonly string $email)
     {
     }
 
-    public function email() : int
+    public function email() : string
     {
         return $this->email;
     }

@@ -8,8 +8,8 @@ class CreateEmailCommand implements Command
 {
 
     public function __construct(
-        private string $email,
-        private string $name
+        public string $email,
+        public string $name
     ) {
     } 
 
