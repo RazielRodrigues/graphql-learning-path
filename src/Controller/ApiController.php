@@ -9,15 +9,20 @@ use App\Application\Command\FindEmailQuery;
 use App\Domain\Bus\Command\CommandBus;
 use App\Domain\Bus\Query\QueryBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Console\Messenger\RunCommandMessage;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpClient\Messenger\PingWebhookMessage;
+use Symfony\Component\Messenger\Stamp\HandledStamp;
 
 class ApiController extends AbstractController {
 
     public function __construct(
         private QueryBus $queryBus,
         private CommandBus $commandBus,
+        private MessageBusInterface $bus
     ) {
     }
 
@@ -42,9 +47,35 @@ class ApiController extends AbstractController {
     public function create() : Response {
 
         $command = new CreateEmailCommand(email: 'mail@mail.com' . microtime(), name: 'Raziel Rodrigues');
-        $this->commandBus->dispatch($command);
+        $envelope = $this->commandBus->dispatch($command);
+        #$this->bus->dispatch(new RunCommandMessage('cache:clear'));
 
-        return new JsonResponse(['message' => $command->email() . ' created']);
+        // get the value that was returned by the last message handler
+        $handledStamp = $envelope->last(HandledStamp::class);
+
+        // or get info about all of handlers
+        //$handledStamps = $envelope->all(HandledStamp::class);
+
+        return new JsonResponse(['message' => print_r($handledStamp->getResult())]);
+    }
+
+    public function ping(): void
+    {
+        //// An HttpExceptionInterface is thrown on 3xx/4xx/5xx
+        //$this->bus->dispatch(new PingWebhookMessage('GET', 'https://example.com/status'));
+//
+        //// Ping, but does not throw on 3xx/4xx/5xx
+        //$this->bus->dispatch(new PingWebhookMessage('GET', 'https://example.com/status', throw: false));
+//
+        //// Any valid HttpClientInterface option can be used
+        //$this->bus->dispatch(new PingWebhookMessage('POST', 'https://example.com/status', [
+        //    'headers' => [
+        //        'Authorization' => 'Bearer ...'
+        //    ],
+        //    'json' => [
+        //        'data' => 'some-data',
+        //    ],
+        //]));
     }
 
 }

@@ -6,6 +6,7 @@ use App\Domain\Bus\Command\Command;
 use App\Domain\Bus\Command\CommandBus;
 use App\Infra\Bus\HandlerBuilder;
 use Exception;
+use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 use Symfony\Component\Messenger\Handler\HandlersLocator;
 use Symfony\Component\Messenger\MessageBus;
@@ -22,9 +23,9 @@ final class MessengerCommandBus implements CommandBus
         $this->commandBus = $commandBus;
     }
 
-    public function dispatch(Command $command): void
+    public function dispatch(Command $command): Envelope
     {
-        $this->commandBus->dispatch($command);
+        return $this->commandBus->dispatch($command);
     }
 
 }

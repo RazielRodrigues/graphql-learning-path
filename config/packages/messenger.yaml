@@ -11,8 +11,8 @@ framework:
 
         routing:
             # Route your messages to the transports
-            #'App\Command\BuyItem': sync
-            #'App\Command\SellItem': sync
+            'App\Application\Command\CreateEmailCommandHandler': async
+            'App\Application\Command\FindEmailQueryHandler': async
             #'App\Query\ListCartItems': sync
 
         default_bus: command.bus
